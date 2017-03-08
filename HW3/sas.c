@@ -1,12 +1,13 @@
 /**
- *
+ * Written by Jeremy Bauchwitz and Kyle Verdeyen
+ * Emails: jbauchw1@jhu.edu, kverdey1@jhu.edu
+ * Assignment 3, Problem 2 (SCRAM Assembler)
  */
 
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-//#include "instruction.h"
 
 // This defines the maximum size of the SCRAM's memory
 #define MAX_BYTES 16
@@ -23,11 +24,14 @@
 // This defines the maximum allowed opcode length
 #define MAX_OPCODE 3
 
+// This defines the number of lower-order bits
+#define BIT_LENGTH 4
+
 // This struct will act like a dictionary mapping
 //  each opcode-address pair
 struct instruction {
-    char opcode[3];
-    int address[4];
+    char opcode[MAX_OPCODE];
+    int address[BIT_LENGTH];
 };
 
 // This struct will act like a dictionary mapping
@@ -40,7 +44,7 @@ struct labeladdress {
 
 struct labeladdress label_addresses[MAX_BYTES];
 struct instruction valid_instructions[NUM_CODES];
-char valid_labels[MAX_BYTES][MAX_LINE] = {};
+char valid_labels[MAX_BYTES][MAX_LINE] = {0};
 
 static void initinstructions()
 {
@@ -142,8 +146,7 @@ static void initinstructions()
 static int readfile(char line_input[MAX_BYTES][MAX_LINE])
 {
     int line_num = 0;
-    
-    //while (!feof(stdin) && line_num < MAX_BYTES) {
+
     while (!feof(stdin)) {
         if (line_num >= MAX_BYTES) {
             fprintf(stderr, "ERROR on line %d: file is too big\n", line_num);
@@ -153,7 +156,6 @@ static int readfile(char line_input[MAX_BYTES][MAX_LINE])
         int line_chars = 0;
         char currChar;
         
-        //while ((currChar = getchar()) != '\n' && line_chars < MAX_LINE) {
         while ((currChar = getchar()) != EOF) {
             if (line_chars >= MAX_LINE) {
                 fprintf(stderr, "ERROR on line %d: line is too long\n", line_num);
@@ -164,16 +166,10 @@ static int readfile(char line_input[MAX_BYTES][MAX_LINE])
                 break;
             }
             
-            // <for testing>
-            //printf("%c", currChar);
-            
             line_input[line_num][line_chars] = currChar;
             line_chars++;
         }
-        
-        // <for testing>
-        //printf("\n");
-        
+
         line_num++;
     }
     
@@ -208,15 +204,8 @@ static int isvalidopcode(char test[3])
 static int containslabel(char tocheck[MAX_LABEL])
 {
     int found = 0;
-    
-    // <for testing>
-    //printf("The valid labels are: %s\n", valid_labels[0]);
-    
+
     for (int i = 0; i < MAX_BYTES; i++) {
-        
-        // <for testing>
-        //printf("The valid label being tested is: %s\n", valid_labels[i]);
-        
         for (int j = 0; j < MAX_LABEL; j++) {
             if (isalpha(tocheck[j]) &&
                     tocheck[j] != valid_labels[i][j]) {
@@ -285,7 +274,7 @@ static void preprocesslabels(char line_input[MAX_BYTES][MAX_LINE], int lines)
             }
         }
         
-        char templabel[MAX_LABEL] = {};
+        char templabel[MAX_LABEL] = {0};
         
         // Find labels to add to the array
         for (int j = line_start; j < MAX_LABEL; j++) {
@@ -319,10 +308,6 @@ static void preprocesslabels(char line_input[MAX_BYTES][MAX_LINE], int lines)
         
         // Store the label that has been identified
         if (foundnewlabel == 1 && containslabel(templabel) == 0) {
-            
-            // <for testing>
-            //printf("templabel is: %s\n", templabel);
-            
             addlabel(templabel);
         } else if (foundnewlabel == 1 && containslabel(templabel) == 1) {
             fprintf(stderr, "ERROR on line %d: attempted to redefine a label\n", i);
@@ -338,7 +323,7 @@ static void preprocesslabels(char line_input[MAX_BYTES][MAX_LINE], int lines)
 static int haslabel(char tocheck[MAX_LINE], char testlabel[MAX_LABEL])
 {
     int foundlabel = 0;
-    char templabel[MAX_LABEL] = {};
+    char templabel[MAX_LABEL] = {0};
     
     for (int i = 0; i < MAX_LINE; i++) {
         if (tocheck[i] == ':') {
@@ -347,9 +332,6 @@ static int haslabel(char tocheck[MAX_LINE], char testlabel[MAX_LABEL])
                     templabel[j] = tocheck[j];
                 }
             }
-            
-            // <for testing>
-            //printf("\nTesting label: %s\n", templabel);
             
             foundlabel = containslabel(templabel);
             
@@ -422,8 +404,8 @@ static int hasinstruction(char tocheck[MAX_LINE], int start,
     int foundaddress = 0;
     int opcodestart = -1;
     int count = 0;
-    char tempop[4] = {};
-    char tempad[MAX_LABEL] = {};
+    char tempop[BIT_LENGTH] = {0};
+    char tempad[MAX_LABEL] = {0};
     
     // Find where a potential opcode begins
     for (int i = start; i < MAX_LINE; i++) {
@@ -493,24 +475,7 @@ static int hasinstruction(char tocheck[MAX_LINE], int start,
             testad[i] = tempad[i];
         }
         
-        // <for testing>
-        printf("Possibly valid instruction found\n");
-        printf("Opcode is: %s\n", testop);
-        printf("Address is: %s\n\n", testad);
-        
         return 1;
-    }
-    
-    // <for testing>
-    printf("No valid instruction found: ");
-    
-    // <for testing>
-    if (foundopcode == 1 && foundaddress == 0) {
-        printf("invalid address\n\n");
-    } else if (foundopcode == 0 && foundaddress == 1) {
-        printf("invalid opcode\n\n");
-    } else if (foundopcode == 0 && foundaddress == 0) {
-        printf("invalid opcode and address\n\n");
     }
     
     return 0;
@@ -526,13 +491,9 @@ static void checkforerrors(char line_input[MAX_BYTES][MAX_LINE], int lines,
                            char final_addresses[MAX_BYTES][MAX_LINE])
 {
     for (int i = 0; i < lines - 1; i++) {
-        
-        // <for testing>
-        printf("Line %d is: %s\n", i, line_input[i]);
-        
-        char testlabel[MAX_LABEL] = {};
-        char testop[MAX_OPCODE] = {};
-        char testad[MAX_LINE] = {};
+        char testlabel[MAX_LABEL] = {0};
+        char testop[MAX_OPCODE] = {0};
+        char testad[MAX_LINE] = {0};
         
         int instructionstart = 0;
         
@@ -542,9 +503,6 @@ static void checkforerrors(char line_input[MAX_BYTES][MAX_LINE], int lines,
         
         if (labelpresent != 0) {
             instructionstart = labelpresent + 1;
-            
-            // <for testing>
-            printf("This line has a label: ");
             
             // Since there are no errors in the instruction at this point,
             //  copy the opcodes and addresses for easier access later
@@ -715,48 +673,27 @@ static void processforoutput(char line_input[MAX_BYTES][MAX_LINE], int lines,
                              char final_opcodes[MAX_BYTES][MAX_OPCODE],
                              char final_addresses[MAX_BYTES][MAX_LINE])
 {
-    int label_bytes[MAX_BYTES] = {};
+    int label_bytes[MAX_BYTES] = {0};
     int byte_count = 0;
     
     // Get the value for each label
     for (int i = 0; i < MAX_BYTES; i++) {
         if (isalpha(final_opcodes[i][0]) && isalnum(final_addresses[i][0])) {
             if (isalpha(final_labels[i][0])) {
-                
-                
-                // <for testing>
-                /*printf("The current label being checked is: %s; ", final_labels[i]);
-                printf("Byte count is: %d; ", byte_count);
-                printf("i is: %d.\n\n", i);*/
-                
-                
                 addlabelbyte(final_labels[i], byte_count);
             }
             
             byte_count++;
         }
     }
-    
-    
-    // <for testing>
-    /*for (int a = 0; a < MAX_BYTES; a++) {
-        if (isalpha(label_addresses[a].label[0])) {
-            printf("Label %d in label_addresses is %s, and its bytes are %d\n", a,
-                   label_addresses[a].label, label_addresses[a].byte_num);
-        }
-        
-    }
-    printf("\n");*/
-    
-    
-    
+
     for (int i = 0; i < MAX_BYTES; i++) {
         if (isalpha(final_opcodes[i][0]) && isalnum(final_addresses[i][0])) {
             int address;
-            int binaddress[4] = {};
-            int binopcode[4] = {};
+            int binaddress[4] = {0};
+            int binopcode[4] = {0};
             int uses_label = 0;
-            char labeltoconvert[MAX_LABEL] = {};
+            char labeltoconvert[MAX_LABEL];
             
             // Get the binary representation of each opcode
             getbinaryopcode(final_opcodes[i], binopcode);
@@ -791,19 +728,6 @@ static void processforoutput(char line_input[MAX_BYTES][MAX_LINE], int lines,
                 tobinary(bytes, binaddress);
             }
             
-            
-            // <for testing>
-            /*printf("Opcode is: %s; ", final_opcodes[i]);
-            printf("Address is: %s; ", final_addresses[i]);
-            if (uses_label == 1) {
-                printf("Uses label: true; ");
-                printf("The current label being checked is: %s\n", labeltoconvert);
-            } else {
-                printf("Uses label: false\n");
-            }
-            printf("i is: %d.\n", i);*/
-            
-            
             printf("%d%d%d%d%d%d%d%d ", binopcode[0],
                    binopcode[1],
                    binopcode[2],
@@ -812,23 +736,17 @@ static void processforoutput(char line_input[MAX_BYTES][MAX_LINE], int lines,
                    binaddress[1],
                    binaddress[2],
                    binaddress[3]);
-            
-            // <for testing>
-            //printf("\n");
         }
     }
-    
-    //printf("  .U4p..");
-    printf("\n");
 }
 
 int main(void)
 {
     char line_input[MAX_BYTES][MAX_LINE];
     int lines = 0;
-    char final_labels[MAX_BYTES][MAX_LABEL] = {};
-    char final_opcodes[MAX_BYTES][MAX_OPCODE] = {};
-    char final_addresses[MAX_BYTES][MAX_LINE] = {};
+    char final_labels[MAX_BYTES][MAX_LABEL] = {0};
+    char final_opcodes[MAX_BYTES][MAX_OPCODE] = {0};
+    char final_addresses[MAX_BYTES][MAX_LINE] = {0};
     
     // Initialize the "dictionary" of valid opcode-address pairs
     initinstructions();
@@ -846,11 +764,6 @@ int main(void)
     // At this point, all the input must be valid so get each
     //  opcode and address's binary representations and output
     //  them to stdout
-    
-    // <for testing>
-    printf("\nPRINTING THE FINAL BINARY REPRESENTATIONS:\n");
-    
-    
     processforoutput(line_input, lines, final_labels,
                      final_opcodes, final_addresses);
     
