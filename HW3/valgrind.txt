@@ -1,0 +1,536 @@
+==16360== Memcheck, a memory error detector
+==16360== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==16360== Using Valgrind-3.12.0 and LibVEX; rerun with -h for copyright info
+==16360== Command: ./sas
+==16360== 
+--16360-- Valgrind options:
+--16360--    --leak-check=yes
+--16360--    --track-origins=yes
+--16360--    -v
+--16360-- Contents of /proc/version:
+--16360--   Linux version 4.9.6-200.fc25.x86_64 (mockbuild@bkernel01.phx2.fedoraproject.org) (gcc version 6.3.1 20161221 (Red Hat 6.3.1-1) (GCC) ) #1 SMP Thu Jan 26 10:17:45 UTC 2017
+--16360-- 
+--16360-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-avx-avx2-bmi
+--16360-- Page sizes: currently 4096, max supported 4096
+--16360-- Valgrind library directory: /usr/lib64/valgrind
+--16360-- Reading syms from /home/dsf167/kjv_csf/HW3/sas
+--16360-- Reading syms from /usr/lib64/ld-2.24.so
+--16360-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux
+--16360--    object doesn't have a symbol table
+--16360--    object doesn't have a dynamic symbol table
+--16360-- Scheduler: using generic scheduler lock implementation.
+--16360-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+==16360== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-16360-by-dsf167-on-ugrad3
+==16360== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-16360-by-dsf167-on-ugrad3
+==16360== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-16360-by-dsf167-on-ugrad3
+==16360== 
+==16360== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==16360== don't want to do, unless you know exactly what you're doing,
+==16360== or are doing some strange experiment):
+==16360==   /usr/lib64/valgrind/../../bin/vgdb --pid=16360 ...command...
+==16360== 
+==16360== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==16360==   /path/to/gdb ./sas
+==16360== and then give GDB the following command
+==16360==   target remote | /usr/lib64/valgrind/../../bin/vgdb --pid=16360
+==16360== --pid is optional if only one valgrind process is running
+==16360== 
+--16360-- REDIR: 0x401d400 (ld-linux-x86-64.so.2:strlen) redirected to 0x3809fc71 (???)
+--16360-- REDIR: 0x401bd50 (ld-linux-x86-64.so.2:index) redirected to 0x3809fc8b (???)
+--16360-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so
+--16360-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so
+==16360== WARNING: new redirection conflicts with existing -- ignoring it
+--16360--     old: 0x0401d400 (strlen              ) R-> (0000.0) 0x3809fc71 ???
+--16360--     new: 0x0401d400 (strlen              ) R-> (2007.0) 0x04c30c70 strlen
+--16360-- REDIR: 0x401bf70 (ld-linux-x86-64.so.2:strcmp) redirected to 0x4c31d70 (strcmp)
+--16360-- REDIR: 0x401df10 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4c35140 (mempcpy)
+--16360-- Reading syms from /usr/lib64/libm-2.24.so
+--16360-- Reading syms from /usr/lib64/libc-2.24.so
+--16360-- REDIR: 0x51d41b0 (libc.so.6:strcasecmp) redirected to 0x4a28752 (_vgnU_ifunc_wrapper)
+--16360-- REDIR: 0x51cfb20 (libc.so.6:strcspn) redirected to 0x4a28752 (_vgnU_ifunc_wrapper)
+--16360-- REDIR: 0x51d64a0 (libc.so.6:strncasecmp) redirected to 0x4a28752 (_vgnU_ifunc_wrapper)
+--16360-- REDIR: 0x51d1f90 (libc.so.6:strpbrk) redirected to 0x4a28752 (_vgnU_ifunc_wrapper)
+--16360-- REDIR: 0x51d2320 (libc.so.6:strspn) redirected to 0x4a28752 (_vgnU_ifunc_wrapper)
+--16360-- REDIR: 0x51d3830 (libc.so.6:memmove) redirected to 0x4a28752 (_vgnU_ifunc_wrapper)
+--16360-- REDIR: 0x51d1ca0 (libc.so.6:rindex) redirected to 0x4c30600 (rindex)
+--16360-- REDIR: 0x51c8ec0 (libc.so.6:malloc) redirected to 0x4c2db2f (malloc)
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x400B98: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x400C00: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x400C2D: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x400BF3: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x400BF8: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x400C36: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x400C40: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x400C24: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+--16360-- REDIR: 0x51da550 (libc.so.6:strchrnul) redirected to 0x4c34c70 (strchrnul)
+--16360-- REDIR: 0x51d3920 (libc.so.6:__GI_mempcpy) redirected to 0x4c34e70 (__GI_mempcpy)
+--16360-- REDIR: 0x51cffc0 (libc.so.6:strlen) redirected to 0x4c30bb0 (strlen)
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x4C30BC8: strlen (vg_replace_strmem.c:454)
+==16360==    by 0x5192AD0: vfprintf (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x5199718: printf (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x400CA5: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x400D38: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x4C30BB9: strlen (vg_replace_strmem.c:454)
+==16360==    by 0x5192AD0: vfprintf (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x5199718: printf (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x400CA5: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x400DE6: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x400E22: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x400E1C: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x400E81: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x400EC0: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x400EE7: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x400EE9: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x400F09: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x400F0F: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x40122B: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x401244: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x401251: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x401275: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x4012A4: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x4012B2: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x4C30BC8: strlen (vg_replace_strmem.c:454)
+==16360==    by 0x5192AD0: vfprintf (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x5199718: printf (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x40132D: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x401283: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x4012C7: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x4015EA: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== Syscall param write(buf) points to uninitialised byte(s)
+==16360==    at 0x523AC30: __write_nocancel (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x51BDA56: _IO_file_write@@GLIBC_2.2.5 (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x51BF5C1: _IO_do_write@@GLIBC_2.2.5 (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x51C187B: _IO_flush_all_lockp (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x51C1A44: _IO_cleanup (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x517D3B2: __run_exit_handlers (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x517D469: exit (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x5163407: (below main) (in /usr/lib64/libc-2.24.so)
+==16360==  Address 0x55110fa is 122 bytes inside a block of size 4,096 alloc'd
+==16360==    at 0x4C2DB9D: malloc (vg_replace_malloc.c:299)
+==16360==    by 0x51B14B1: _IO_file_doallocate (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x51C09A5: _IO_doallocbuf (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x51BFB77: _IO_file_overflow@@GLIBC_2.2.5 (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x51BE24C: _IO_file_xsputn@@GLIBC_2.2.5 (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x5190B05: vfprintf (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x5199718: printf (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x400CA5: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+Line 0 is: # Simple counter program in SCRAM assembly.
+No valid instruction found: invalid opcode and address
+
+Line 1 is: 
+No valid instruction found: invalid opcode and address
+
+Line 2 is: start:	LDA	count
+This line has a label: Possibly valid instruction found
+Opcode is: LDA
+Address is: count
+
+Line 3 is: 	ADD	one
+Possibly valid instruction found
+Opcode is: ADD
+Address is: one
+
+Line 4 is: 	STA	count
+Possibly valid instruction found
+Opcode is: STA
+Address is: count
+
+Line 5 is: 	JMP	start¿X
+Possibly valid instruction found
+Opcode is: JMP
+Address is: start
+
+Line 6 is: 
+No valid instruction found: invalid opcode and address
+
+Line 7 is: count:	DAT	0	# counter variable
+This line has a label: Possibly valid instruction found
+Opcode is: DAT
+Address is: 0
+
+Line 8 is: one:	DAT	1	# constant 1
+This line has a label: Possibly valid instruction found
+Opcode is: DAT
+Address is: 1
+
+Line 9 is: ‡¡
+No valid instruction found: invalid opcode
+
+
+PRINTING THE FINAL BINARY REPRESENTATIONS:
+00010100 01010101 00111111 01111111 00000000 00000001 
+--16360-- REDIR: 0x51c9270 (libc.so.6:free) redirected to 0x4c2ecdc (free)
+==16360== 
+==16360== HEAP SUMMARY:
+==16360==     in use at exit: 0 bytes in 0 blocks
+==16360==   total heap usage: 2 allocs, 2 frees, 36,864 bytes allocated
+==16360== 
+==16360== All heap blocks were freed -- no leaks are possible
+==16360== 
+==16360== ERROR SUMMARY: 1972 errors from 31 contexts (suppressed: 0 from 0)
+==16360== 
+==16360== 1 errors in context 1 of 31:
+==16360== Syscall param write(buf) points to uninitialised byte(s)
+==16360==    at 0x523AC30: __write_nocancel (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x51BDA56: _IO_file_write@@GLIBC_2.2.5 (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x51BF5C1: _IO_do_write@@GLIBC_2.2.5 (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x51C187B: _IO_flush_all_lockp (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x51C1A44: _IO_cleanup (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x517D3B2: __run_exit_handlers (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x517D469: exit (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x5163407: (below main) (in /usr/lib64/libc-2.24.so)
+==16360==  Address 0x55110fa is 122 bytes inside a block of size 4,096 alloc'd
+==16360==    at 0x4C2DB9D: malloc (vg_replace_malloc.c:299)
+==16360==    by 0x51B14B1: _IO_file_doallocate (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x51C09A5: _IO_doallocbuf (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x51BFB77: _IO_file_overflow@@GLIBC_2.2.5 (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x51BE24C: _IO_file_xsputn@@GLIBC_2.2.5 (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x5190B05: vfprintf (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x5199718: printf (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x400CA5: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 1 errors in context 2 of 31:
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x4012C7: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 1 errors in context 3 of 31:
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x401283: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 1 errors in context 4 of 31:
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x4012B2: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 1 errors in context 5 of 31:
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x400BF8: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 1 errors in context 6 of 31:
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x400BF3: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 2 errors in context 7 of 31:
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x4015EA: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 3 errors in context 8 of 31:
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x40122B: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 3 errors in context 9 of 31:
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x400EE9: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 3 errors in context 10 of 31:
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x400EE7: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 3 errors in context 11 of 31:
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x400EC0: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 3 errors in context 12 of 31:
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x400DE6: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 3 errors in context 13 of 31:
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x4C30BB9: strlen (vg_replace_strmem.c:454)
+==16360==    by 0x5192AD0: vfprintf (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x5199718: printf (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x400CA5: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 3 errors in context 14 of 31:
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x400C00: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 6 errors in context 15 of 31:
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x4C30BC8: strlen (vg_replace_strmem.c:454)
+==16360==    by 0x5192AD0: vfprintf (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x5199718: printf (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x40132D: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 9 errors in context 16 of 31:
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x400E81: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 11 errors in context 17 of 31:
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x4012A4: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 13 errors in context 18 of 31:
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x4C30BC8: strlen (vg_replace_strmem.c:454)
+==16360==    by 0x5192AD0: vfprintf (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x5199718: printf (in /usr/lib64/libc-2.24.so)
+==16360==    by 0x400CA5: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 20 errors in context 19 of 31:
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x401251: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 30 errors in context 20 of 31:
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x400C24: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 31 errors in context 21 of 31:
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x400C40: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 31 errors in context 22 of 31:
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x400C36: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 67 errors in context 23 of 31:
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x400B98: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 83 errors in context 24 of 31:
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x400F0F: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 83 errors in context 25 of 31:
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x400F09: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 122 errors in context 26 of 31:
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x400E1C: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 125 errors in context 27 of 31:
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x400E22: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 127 errors in context 28 of 31:
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x400C2D: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 179 errors in context 29 of 31:
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x401275: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 181 errors in context 30 of 31:
+==16360== Use of uninitialised value of size 8
+==16360==    at 0x401244: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== 
+==16360== 825 errors in context 31 of 31:
+==16360== Conditional jump or move depends on uninitialised value(s)
+==16360==    at 0x400D38: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360==  Uninitialised value was created by a stack allocation
+==16360==    at 0x400843: main (in /home/dsf167/kjv_csf/HW3/sas)
+==16360== 
+==16360== ERROR SUMMARY: 1972 errors from 31 contexts (suppressed: 0 from 0)
