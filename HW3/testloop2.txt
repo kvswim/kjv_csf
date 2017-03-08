@@ -1,0 +1,9 @@
+# Simple counter program in SCRAM assembly.
+
+start: LDA	count
+       ADD	one
+       STA	15
+       JMP	start
+
+count: DAT	0
+one:   DAT	1

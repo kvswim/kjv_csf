@@ -1,0 +1,35 @@
+Kyle Verdeyen
+kverdey1@jhu.edu
+
+1. See figure 1.1, 1.2. 
+	R S | Q !Q
+	0 0 | Both	Illegal for NAND
+	0 1 | 1 0	0 1 for NAND
+	1 0 | 0 1 	1 0 for NAND
+	1 1 | Illegal	Both/Mem for NAND
+
+	NAND uses the same number of gates. NAND works on the
+	rising edge clock, NOR works on the falling edge. 
+	There is no change in the propagation time, only a frameshift
+	from the change edge->falling.
+
+2. See figure 2. Uses D type FF and 2:1 muxers. 
+
+3. See figure 3. We can use 2 parallel multiplexers, one 2-input before NOT for
+	NOT selection, and one after all logic manipulations for user selection
+	of AND/OR/NOT/ADD. 
+
+4. To convert an RS latch to edge triggered, stick another RS latch in front of it.
+	In this way we prove there are double the amount of D type latches for edge
+	triggering than there are for a standard level trigger design. 
+	8 bits in a byte, 1 million bytes (8m bits) in a Mb. 
+	We know each RS latch holds 1 bit of data. For 1 Mb we need 8m flipflops
+	and with 2 RS latches each we will need 16m RS latches. 
+	Since we are working with a binomial distribution, we know the PMF is
+	P(X)=nCr(n,k)*p^k*(1-p)^(n-k). Since we are working with total sample data
+	this can simplify to P(x)=p^n, that is probability of success = reliability^
+	sample number.
+	So success of 1Mb=.99^16000000 = 0.85, or 85.2% of success.
+	Then with 4GB, we would need 4b bytes= 32b bits= 32b ff's = 64b latches.
+	Working backwards, 0.99=x^(64000000000)
+	x~=1. For 99% chance of success, manufacturing would need basically 100% reliability.

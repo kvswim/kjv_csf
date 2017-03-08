@@ -1,0 +1,18 @@
+Kyle Verdeyen
+kverdey1@jhu.edu
+Assignment 0
+
+Makefile usage:
+make: makes all
+make all: makes all
+make wc: makes wc, word count (problem 1)
+make hex: makes hex, hexdump (problem 2)
+make clean: cleans up
+
+word count usage: ./wc
+    <input> -> enter -> ctrl-d
+    prints line, word, character count
+
+hexdump usage: ./hex
+    <input> -> enter -> ctrl-d
+    prints same as xxd -g 1
