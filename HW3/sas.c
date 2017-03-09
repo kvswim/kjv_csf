@@ -124,10 +124,10 @@ static void initinstructions()
     valid_instructions[8].opcode[0] = 'H';
     valid_instructions[8].opcode[1] = 'L';
     valid_instructions[8].opcode[2] = 'T';
-    valid_instructions[8].address[0] = 1;
-    valid_instructions[8].address[1] = 1;
-    valid_instructions[8].address[2] = 1;
-    valid_instructions[8].address[3] = 1;
+    valid_instructions[8].address[0] = 0;
+    valid_instructions[8].address[1] = 0;
+    valid_instructions[8].address[2] = 0;
+    valid_instructions[8].address[3] = 0;
     
     // Set DAT 0000
     valid_instructions[9].opcode[0] = 'D';
@@ -150,7 +150,7 @@ static int readfile(char line_input[MAX_BYTES][MAX_LINE])
     while (!feof(stdin)) {
         if (line_num >= MAX_BYTES) {
             fprintf(stderr, "ERROR on line %d: file is too big\n", line_num);
-            exit(0);
+            exit(1);
         }
         
         int line_chars = 0;
@@ -159,7 +159,7 @@ static int readfile(char line_input[MAX_BYTES][MAX_LINE])
         while ((currChar = getchar()) != EOF) {
             if (line_chars >= MAX_LINE) {
                 fprintf(stderr, "ERROR on line %d: line is too long\n", line_num);
-                exit(0);
+                exit(2);
             }
             
             if (currChar == '\n') {
@@ -258,7 +258,7 @@ static void preprocesslabels(char line_input[MAX_BYTES][MAX_LINE], int lines)
             if (isdigit(line_input[i][j])) {
                 fprintf(stderr, "ERROR on line %d: no input shouldn't start"
                         "with a digit\n", i);
-                exit(0);
+                exit(3);
             }
             
             // Break once the first letter has been encountered
@@ -287,7 +287,7 @@ static void preprocesslabels(char line_input[MAX_BYTES][MAX_LINE], int lines)
                 if (colonindex == 0) {
                     fprintf(stderr, "ERROR on line %d: a colon shouldn't begin"
                             "a label or instruction\n", i);
-                    exit(0);
+                    exit(4);
                 }
                 
                 // If the char immediately preceeding the colon is not a letter,
@@ -295,7 +295,7 @@ static void preprocesslabels(char line_input[MAX_BYTES][MAX_LINE], int lines)
                 if (!isalpha(line_input[i][j - 1])) {
                     fprintf(stderr, "ERROR on line %d: a label should only"
                             "contain letters\n", i);
-                    exit(0);
+                    exit(5);
                 }
                 
                 foundnewlabel = 1;
@@ -311,7 +311,7 @@ static void preprocesslabels(char line_input[MAX_BYTES][MAX_LINE], int lines)
             addlabel(templabel);
         } else if (foundnewlabel == 1 && containslabel(templabel) == 1) {
             fprintf(stderr, "ERROR on line %d: attempted to redefine a label\n", i);
-            exit(0);
+            exit(6);
         }
     }
 }
@@ -518,7 +518,7 @@ static void checkforerrors(char line_input[MAX_BYTES][MAX_LINE], int lines,
             if (isvalidopcode(testop) != 1) {
                 fprintf(stderr, "ERROR on line %d: instruction's opcode"
                         "is invalid\n", i);
-                exit(0);
+                exit(7);
             }
             
             // Check for a defined label or a valid number (0-15 for
@@ -536,14 +536,14 @@ static void checkforerrors(char line_input[MAX_BYTES][MAX_LINE], int lines,
                     if (address_num < 0 || address_num > 255) {
                         fprintf(stderr, "ERROR on line %d: non-address data"
                                 "must be within 8 bits\n", i);
-                        exit(0);
+                        exit(8);
                     }
                 } else {
                     // If addresses aren't within 4 bits, throw an error
                     if (address_num < 0 || address_num > 15) {
                         fprintf(stderr, "ERROR on line %d: addresses"
                                 "must be within 4 bits\n", i);
-                        exit(0);
+                        exit(9);
                     }
                 }
             }
@@ -575,12 +575,12 @@ static int concatints(int first, int second)
 /**
  * Convert a 4-bit decimal int to its binary representation.
  */
-static void tobinary(int num, int binaddress[4])
+static void tobinary(int num, int binaddress[4], int bits)
 {
     int b;
     int j = 0;
     
-    for (int i = 3; i >= 0; i--) {
+    for (int i = bits - 1; i >= 0; i--) {
         b = num >> i;
         
         if (b & 1) {
@@ -666,6 +666,26 @@ static void convertlabel(char address[MAX_LINE], char labeltoconvert[MAX_LABEL])
 }
 
 /**
+ * Make a char instruction out of an opcode and its address.
+ */
+static void makepair(char pair[8], int binopcode[4],
+                     int binaddress[8], int isdat)
+{
+    if (isdat == 0) {
+        for (int i = 0; i < 4; i++) {
+            pair[i] = binopcode[i] + '0';
+        }
+        for (int i = 4; i < 8; i++) {
+            pair[i] = binaddress[i - 4] + '0';
+        }
+    } else {
+        for (int i = 0; i < 8; i++) {
+            pair[i] = binaddress[i] + '0';
+        }
+    }
+}
+
+/**
  * Output the binary representation of the input to stdout.
  */
 static void processforoutput(char line_input[MAX_BYTES][MAX_LINE], int lines,
@@ -673,7 +693,6 @@ static void processforoutput(char line_input[MAX_BYTES][MAX_LINE], int lines,
                              char final_opcodes[MAX_BYTES][MAX_OPCODE],
                              char final_addresses[MAX_BYTES][MAX_LINE])
 {
-    int label_bytes[MAX_BYTES] = {0};
     int byte_count = 0;
     
     // Get the value for each label
@@ -690,15 +709,24 @@ static void processforoutput(char line_input[MAX_BYTES][MAX_LINE], int lines,
     for (int i = 0; i < MAX_BYTES; i++) {
         if (isalpha(final_opcodes[i][0]) && isalnum(final_addresses[i][0])) {
             int address;
-            int binaddress[4] = {0};
+            int binaddress[8] = {0};
             int binopcode[4] = {0};
             int uses_label = 0;
-            char labeltoconvert[MAX_LABEL];
+            int bits = 4;
+            int isdat = 0;
+            char labeltoconvert[MAX_LABEL] = {0};
+            
+            // Allow for DAT to have an 8-bit output
+            if (final_opcodes[i][0] == 'D' && final_opcodes[i][1] == 'A' &&
+                final_opcodes[i][2] == 'T') {
+                bits = 8;
+                isdat = 1;
+            }
             
             // Get the binary representation of each opcode
             getbinaryopcode(final_opcodes[i], binopcode);
             
-            // Convert the decimal int to its binary representation
+            // Get the decimal representation of the address
             if (isdigit(final_addresses[i][0]) && !isdigit(final_addresses[i][1])) {
                 address = final_addresses[i][0] - '0';
             } else if (isdigit(final_addresses[i][0]) &&
@@ -709,33 +737,34 @@ static void processforoutput(char line_input[MAX_BYTES][MAX_LINE], int lines,
             } else if (isdigit(final_addresses[i][0]) &&
                        isdigit(final_addresses[i][1]) &&
                        isdigit(final_addresses[i][2])) {
-                // This is only the case for DAT
+                // This is only ever the case for DAT
                 address = concatints(final_addresses[i][0] - '0',
                                      final_addresses[i][1] - '0');
                 address = concatints(address, final_addresses[i][2] - '0');
             }
-            
+
             if (!isdigit(final_addresses[i][0])) {
                 uses_label = 1;
             }
             
+            // Get the binary representation of each address
             if (uses_label == 0) {
-                tobinary(address, binaddress);
+                tobinary(address, binaddress, bits);
             } else {
                 convertlabel(final_addresses[i], labeltoconvert);
-                
                 int bytes = getbytenum(labeltoconvert);
-                tobinary(bytes, binaddress);
+                tobinary(bytes, binaddress, bits);
             }
             
-            printf("%d%d%d%d%d%d%d%d ", binopcode[0],
-                   binopcode[1],
-                   binopcode[2],
-                   binopcode[3],
-                   binaddress[0],
-                   binaddress[1],
-                   binaddress[2],
-                   binaddress[3]);
+            // Combine the opcode and address into an instruction
+            char pair[8] = {0};
+            makepair(pair, binopcode, binaddress, isdat);
+
+            // Get the instruction's memory location
+            char *data = &pair[0];
+            char byteaddress = strtol(data, 0, 2);
+
+            fwrite(&byteaddress, sizeof(byteaddress), 1, stdout);
         }
     }
 }

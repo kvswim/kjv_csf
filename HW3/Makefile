@@ -1,4 +1,4 @@
-CFLAGS=-std=c11 -Wall -Wextra -Wpedantic -O2
+CFLAGS=-std=c11 -Wall -Wextra -Wpedantic -O2 -g
 ALL=sas
 LIB= -lm
 
