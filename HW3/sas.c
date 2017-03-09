@@ -688,8 +688,7 @@ static void makepair(char pair[8], int binopcode[4],
 /**
  * Output the binary representation of the input to stdout.
  */
-static void processforoutput(char line_input[MAX_BYTES][MAX_LINE], int lines,
-                             char final_labels[MAX_BYTES][MAX_LABEL],
+static void processforoutput(char final_labels[MAX_BYTES][MAX_LABEL],
                              char final_opcodes[MAX_BYTES][MAX_OPCODE],
                              char final_addresses[MAX_BYTES][MAX_LINE])
 {
@@ -793,8 +792,7 @@ int main(void)
     // At this point, all the input must be valid so get each
     //  opcode and address's binary representations and output
     //  them to stdout
-    processforoutput(line_input, lines, final_labels,
-                     final_opcodes, final_addresses);
+    processforoutput(final_labels, final_opcodes, final_addresses);
     
     return EXIT_SUCCESS;
 }
